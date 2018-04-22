@@ -106,7 +106,7 @@ public class UserDAOImp implements UserDAOI {
 					rs.getString("address"), rs.getString("cuisine"), Budget.valueOf(rs.getString("budget")), rs.getString("created"),
 					rs.getInt("visits")));
 		}
-		System.out.println("DB:  Retrieved liked restaurants of user with id " +userId+ " from database");
+		System.out.println("DB: Retrieved liked restaurants of user with id " +userId+ " from database");
 		rs.close();
 		prep.close();
 		return restaurants;
