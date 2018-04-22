@@ -16,22 +16,21 @@ public class User {
 	private String lastName;
 	private String password;
 	private List<Restaurant> likedRestaurants;
-	private Date created;
+	private String created;
 
 	public User() {
 
 	}
 
-	public User(long id, String userName, String email, String firstName, String lastName, String password) {
+	public User(long id, String userName, String email, String firstName, String lastName, String created) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.password = password;
 		this.likedRestaurants = new ArrayList<>();
-		this.created = new Date();
+		this.created = new Date().toString();
 	}
 
 	public long getId() {
@@ -90,12 +89,12 @@ public class User {
 		this.likedRestaurants = likedRestaurants;
 	}
 
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 
 	public void setCreated(Date created) {
-		this.created = created;
+		this.created = created.toString();
 	}
 
 }

@@ -16,13 +16,15 @@ public class Restaurant {
 	private Budget budget;
 	private String cuisine;
 	private List<User> likers;
-	private Date created;
+	private int visits;
+	private String created;
+
 
 	public Restaurant() {
 
 	}
 
-	public Restaurant(long id, String name, int zipcode, String address, Budget budget, String cuisine) {
+	public Restaurant(long id, String name, int zipcode, String address, String cuisine, Budget budget, String created, int visits) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -31,7 +33,8 @@ public class Restaurant {
 		this.budget = budget;
 		this.cuisine = cuisine;
 		this.likers = new ArrayList<>();
-		this.created = new Date();
+		this.visits = visits;
+		this.created = new Date().toString();
 	}
 
 	public long getId() {
@@ -81,13 +84,30 @@ public class Restaurant {
 	public void setCuisine(String cuisine) {
 		this.cuisine = cuisine;
 	}
+	
 
-	public Date getCreated() {
+	public List<User> getLikers() {
+		return likers;
+	}
+
+	public void setLikers(List<User> likers) {
+		this.likers = likers;
+	}
+
+	public int getVisits() {
+		return visits;
+	}
+
+	public void setVisits(int visits) {
+		this.visits = visits;
+	}
+
+	public String getCreated() {
 		return created;
 	}
 
 	public void setCreated(Date created) {
-		this.created = created;
+		this.created = created.toString();
 	}
 
 }

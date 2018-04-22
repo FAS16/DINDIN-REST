@@ -1,11 +1,13 @@
 package org.fahadali.dindin.services;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Map;
 
 import org.fahadali.dindin.database.DatabaseClass;
+import org.fahadali.dindin.database.RestaurantDAOImp;
 import org.fahadali.dindin.exception.DataNotFoundException;
 import org.fahadali.dindin.model.Budget;
 import org.fahadali.dindin.model.Restaurant;
@@ -14,25 +16,29 @@ import org.fahadali.dindin.model.Restaurant;
 
 public class RestaurantService {
 
-	private Map<Long, Restaurant> restaurants = DatabaseClass.getRestaurants(); // Dette skal reelt set ske til
-																				// databasen, og ikke til mockup-klassen
+	private RestaurantDAOImp restaurantDAO;
+	private ArrayList<Restaurant> restaurants;
 
 	public RestaurantService() {
 
-		restaurants.put(1L, new Restaurant(1, "Silas kebab",2300, "København", Budget.LOW, "Tyrkisk"));
-		restaurants.put(2L, new Restaurant(2, "Noma",1432, "København",Budget.HIGH, "Gourmet"));
-		restaurants.put(3L, new Restaurant(3, "Amager kebab",2300, "København", Budget.LOW, "Tyrkisk"));
+		restaurantDAO = new RestaurantDAOImp();
+		restaurants = getAllRestaurants();
 
 	}
 
-	public List<Restaurant> getAllRestaurants() {
-		return new ArrayList<Restaurant>(restaurants.values()); // Passing til en ArrayList
+	public ArrayList<Restaurant> getAllRestaurants() {
+		try {
+			return restaurantDAO.selectAllRestaurants();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public List<Restaurant> getRestaurantsByZipcode(int zipcode) {
 		List<Restaurant> restaurantsByZipcode = new ArrayList<>();
 
-		for (Restaurant r : restaurants.values()) {
+		for (Restaurant r : restaurants) {
 			if (r.getZipcode() == zipcode) {
 				restaurantsByZipcode.add(r);
 			}
@@ -42,39 +48,70 @@ public class RestaurantService {
 	}
 
 	public List<Restaurant> getRestaurantsPaginated(int start, int size) {
-		ArrayList<Restaurant> list = new ArrayList<Restaurant>(restaurants.values());
-		if (start + size > list.size())
+		if (start + size > restaurants.size())
 			return new ArrayList<Restaurant>(); // returnerer tom list, hvis ingen resultater
-		return list.subList(start, start + size);
+		return restaurants.subList(start, start + size);
 
 	}
 
 	public Restaurant getRestaurant(long id) {
-		Restaurant restaurant = restaurants.get(id);
-			if(restaurant == null) {
-				throw new DataNotFoundException("Restaurant with id "+ id + " not found" );
-				
-			}
-			return restaurant;
-		 
+		Restaurant restaurant = null;
+		for (Restaurant r : restaurants) {
+			if (r.getId() == id)
+				restaurant = r;
+		}
+
+		if (restaurant == null) {
+			throw new DataNotFoundException("Restaurant with id " + id + " not found");
+
+		}
+		return restaurant;
+
 	}
 
 	public Restaurant addRestaurant(Restaurant restaurant) {
 		restaurant.setId(restaurants.size() + 1);
-		restaurants.put(restaurant.getId(), restaurant);
+		restaurants.add(restaurant);
+		try {
+			restaurantDAO.insertRestaurant(restaurant);
+			this.restaurants = getAllRestaurants();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return restaurant;
 	}
 
 	public Restaurant updateRestaurant(Restaurant restaurant) {
-		if (restaurant.getId() <= 0) {
-			return null;
+		if (restaurant.getId() <= 0) return null;
+		for (int i = 0; i < restaurants.size(); i++) {
+			if(restaurants.get(i).getId() == restaurant.getId()) {
+				restaurants.set(i, restaurant);
+				break;
+			}
 		}
-		restaurants.put(restaurant.getId(), restaurant);
+		try {
+			restaurantDAO.updateRestaurant(restaurant);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		this.restaurants = getAllRestaurants();
 		return restaurant;
 	}
 
 	public Restaurant removeRestaurant(long id) {
-		return restaurants.remove(id);
+		Restaurant toBeRemoved = null;
+		for (int i = 0; i < restaurants.size(); i++) {
+			if(restaurants.get(i).getId() == id) {
+				toBeRemoved = restaurants.get(i);
+				restaurants.remove(i);
+			}
+			try {
+				restaurantDAO.deleteRestaurant(toBeRemoved);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return toBeRemoved;
 	}
 
 }

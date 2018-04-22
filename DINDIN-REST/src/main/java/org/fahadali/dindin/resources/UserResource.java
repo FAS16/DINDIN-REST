@@ -12,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.fahadali.dindin.auth.Secured;
 import org.fahadali.dindin.model.User;
 import org.fahadali.dindin.services.UserService;
 
@@ -24,11 +25,12 @@ public class UserResource {
 	private UserService userService = new UserService();
 	
 	@GET
-	public List<User> getUser() {
+	public List<User> getUsers() {
 		return userService.getAllUsers();
 	}
 	
 	@GET
+	@Secured
 	@Path("/{userId}")
 	public User getUser(@PathParam("userId") long id) {
 		return userService.getUser(id);

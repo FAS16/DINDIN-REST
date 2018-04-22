@@ -61,7 +61,7 @@ public class LoginResource {
 		long nowMillis = System.currentTimeMillis();
 		Date now = new java.util.Date(nowMillis);
 
-		// JWT ttl (3 hour)
+		// JWT ttl (3 hours)
 		long ttlMillis = 7200000;
 		long expMillis = nowMillis + ttlMillis;
 		Date expiration = new Date(expMillis);

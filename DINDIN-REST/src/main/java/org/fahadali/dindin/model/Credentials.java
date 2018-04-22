@@ -1,9 +1,11 @@
 package org.fahadali.dindin.model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Credentials {
+public class Credentials implements Serializable {
 	
 	private String username;
 	private String password;

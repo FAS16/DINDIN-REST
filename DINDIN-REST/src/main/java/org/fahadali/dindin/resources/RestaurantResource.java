@@ -75,7 +75,7 @@ public class RestaurantResource {
 		@Produces(MediaType.TEXT_XML) //returns/supports json & xml
 		public List<Restaurant> getXmlRestaurants(@BeanParam RestaurantFilterBean filterBean ) {
 			System.out.println("XML methods called");
-			//@QueryParam er til filtrering - f.eks.: /restaurants?zipcode=2300
+			
 			if(filterBean.getZipcode() > 0) {
 				return restaurantService.getRestaurantsByZipcode(filterBean.getZipcode());
 			}
