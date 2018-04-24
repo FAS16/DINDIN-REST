@@ -66,7 +66,7 @@ public class RestaurantService {
 		}
 
 		if (restaurant == null) {
-			throw new DataNotFoundException("Restaurant with id " + id + " not found");
+			throw new DataNotFoundException("Restaurant  with id " + id + " not found");
 
 		}
 		return restaurant;
