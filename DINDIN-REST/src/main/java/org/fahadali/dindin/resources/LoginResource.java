@@ -1,6 +1,7 @@
 package org.fahadali.dindin.resources;
 
 import java.rmi.RemoteException;
+
 import java.security.Key;
 
 import javax.crypto.KeyGenerator;
@@ -77,7 +78,7 @@ public class LoginResource {
 				.claim("username", username)
 				.signWith(sigAlgo, signingKey)
 				.setExpiration(expiration);
-		
+
 		return builder.compact();
 
 	}

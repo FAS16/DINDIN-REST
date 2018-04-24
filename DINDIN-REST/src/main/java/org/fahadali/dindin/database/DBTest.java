@@ -24,7 +24,7 @@ public class DBTest {
 		try {
 			 restaurants = r.selectAllRestaurants();
 			users = u.selectAllUsers();
-			likers = r.selectAllLikers(rest);
+			likers = r.selectAllLikers((int)rest.getId());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

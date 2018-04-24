@@ -1,6 +1,7 @@
 package org.fahadali.dindin.auth;
 
 import java.io.IOException;
+
 import javax.annotation.Priority;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.Priorities;
@@ -18,7 +19,7 @@ import io.jsonwebtoken.Jwts;
  * Filter defined for requests, that require authentication
  * 
  */
-
+//Kan der godt være flere filtre
 @Secured
 @Provider
 @Priority(Priorities.AUTHENTICATION)
@@ -50,7 +51,7 @@ public class SecurityFilter implements ContainerRequestFilter {
 				// Verifying the token
 				validateJWT(token);
 				
-			} catch (Exception e) {
+			} catch (Exception e) { //TimeoutException - forskellige tokens smide
 				System.out.println("Invalid token!");
 				Response unauthorizedStatus = Response.status(Response.Status.UNAUTHORIZED)
 						.build();
@@ -69,7 +70,7 @@ public class SecurityFilter implements ContainerRequestFilter {
 				.setSigningKey(DatatypeConverter.parseBase64Binary("secret"))
 				.parseClaimsJws(token)
 				.getBody();
-		System.out.println("The token in valid!");
+		System.out.println("The token is valid!");
 
 	}
 

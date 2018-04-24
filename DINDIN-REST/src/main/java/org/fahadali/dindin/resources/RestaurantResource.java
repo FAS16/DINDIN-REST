@@ -71,24 +71,24 @@ public class RestaurantResource {
 			return restaurantService.getAllRestaurants();
 		}
 		
-		@GET
-		@Produces(MediaType.TEXT_XML) //returns/supports json & xml
-		public List<Restaurant> getXmlRestaurants(@BeanParam RestaurantFilterBean filterBean ) {
-			System.out.println("XML methods called");
-			
-			if(filterBean.getZipcode() > 0) {
-				return restaurantService.getRestaurantsByZipcode(filterBean.getZipcode());
-			}
-			
-			if(filterBean.getStart() >= 0 && filterBean.getSize()> 0) {
-				return restaurantService.getRestaurantsPaginated(filterBean.getStart(), filterBean.getSize());
-			}
-			
-			
-			return restaurantService.getAllRestaurants();
-		}
-		
-		
+//		@GET
+//		@Produces(MediaType.TEXT_XML) //returns/supports json & xml
+//		public List<Restaurant> getXmlRestaurants(@BeanParam RestaurantFilterBean filterBean ) {
+//			System.out.println("XML methods called");
+//			
+//			if(filterBean.getZipcode() > 0) {
+//				return restaurantService.getRestaurantsByZipcode(filterBean.getZipcode());
+//			}
+//			
+//			if(filterBean.getStart() >= 0 && filterBean.getSize()> 0) {
+//				return restaurantService.getRestaurantsPaginated(filterBean.getStart(), filterBean.getSize());
+//			}
+//			
+//			
+//			return restaurantService.getAllRestaurants();
+//		}
+//		
+//		
 	
 	@GET
 	@Path("/{restaurantId}") //Denne del af URLen er variabel
@@ -138,10 +138,10 @@ public class RestaurantResource {
 		restaurantService.removeRestaurant(id);
 	}
 	
-
-	@Path("/{restaurantId}/comments") //Denne del af URLen er variabel
-	public FavoredResource getCommentResource() { //JAX-RS ser at returrypen er en anden sub-resource, og vil derfor bruge den til at besvare forespørgsler
-		return new FavoredResource();
+	@Path("/{restaurantId}/likers")
+	public RestaurantLikersResource getRestaurantLikersResource() {//JAX-RS ser at returrypen er en anden sub-resource, og vil derfor bruge den til at besvare forespørgsler
+		return new RestaurantLikersResource();
+		
 	}
 
 }

@@ -93,14 +93,14 @@ public class RestaurantDAOImp implements RestaurantDAOI {
 	}
 
 	@Override
-	public ArrayList<User> selectAllLikers(Restaurant restaurant) throws SQLException {
+	public ArrayList<User> selectAllLikers(long restaurantId) throws SQLException {
 
 		ArrayList<User> likers = new ArrayList<>();
 		final String SELECT_ALL_LIKERS = "SELECT users.id, users.username, users.email, users.first_name, users.last_name, users.created "
 				+ "FROM likes INNER JOIN users ON users.id = likes.user_id " + "WHERE likes.restaurant_id = ?";
 
 		prep = connector.getConnection().prepareStatement(SELECT_ALL_LIKERS);
-		prep.setLong(1, restaurant.getId());
+		prep.setLong(1, restaurantId);
 		ResultSet rs = prep.executeQuery();
 
 		while (rs.next()) {
@@ -108,7 +108,7 @@ public class RestaurantDAOImp implements RestaurantDAOI {
 			likers.add(new User(rs.getLong("id"), rs.getString("username"), rs.getString("email"),
 					rs.getString("first_name"), rs.getString("last_name"), rs.getString("created")));
 		}
-		System.out.println("DB: Retrieved likers of restaurant " + restaurant.getName() + " from database");
+		System.out.println("DB: Retrieved likers of restaurant with id " + restaurantId + " from database");
 		rs.close();
 		prep.close();
 		return likers;

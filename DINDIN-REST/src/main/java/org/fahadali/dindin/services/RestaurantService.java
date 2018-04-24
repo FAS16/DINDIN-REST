@@ -11,6 +11,7 @@ import org.fahadali.dindin.database.RestaurantDAOImp;
 import org.fahadali.dindin.exception.DataNotFoundException;
 import org.fahadali.dindin.model.Budget;
 import org.fahadali.dindin.model.Restaurant;
+import org.fahadali.dindin.model.User;
 
 //Denne klasse (service) skal forbinde til databasen og hente alle restauranter
 
@@ -27,8 +28,11 @@ public class RestaurantService {
 	}
 
 	public ArrayList<Restaurant> getAllRestaurants() {
+		ArrayList<Restaurant> restaurants = null;
 		try {
-			return restaurantDAO.selectAllRestaurants();
+			restaurants = restaurantDAO.selectAllRestaurants();
+			for(Restaurant r: restaurants) r.setLikers(getAllLikers(r.getId()));
+			return restaurants;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -45,7 +49,7 @@ public class RestaurantService {
 		}
 		return restaurantsByZipcode;
 
-	}
+	} 
 
 	public List<Restaurant> getRestaurantsPaginated(int start, int size) {
 		if (start + size > restaurants.size())
@@ -112,6 +116,16 @@ public class RestaurantService {
 			}
 		}
 		return toBeRemoved;
+	}
+	
+	public ArrayList<User> getAllLikers(long id){
+		try {
+			return restaurantDAO.selectAllLikers(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 
 }

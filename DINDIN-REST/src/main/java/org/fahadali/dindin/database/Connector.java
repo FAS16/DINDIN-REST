@@ -24,6 +24,7 @@ public class Connector {
 
 			Class.forName(DRIVER);
 			this.con = DriverManager.getConnection(CONNETION_URL, USERNAME, PASSWORD);
+			System.out.println("Connection to database established");
 
 		} catch (Exception e) {
 			e.printStackTrace();

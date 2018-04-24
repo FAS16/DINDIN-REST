@@ -19,18 +19,18 @@ import org.fahadali.dindin.services.UserService;
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON) //returns json
 @Consumes(MediaType.APPLICATION_JSON) // accepts json
-//De metoder der skriver/ændrer bruger consumes (fordi de tager i mod noget ny data)
 public class UserResource {
 	
 	private UserService userService = new UserService();
 	
 	@GET
+	@Secured
 	public List<User> getUsers() {
 		return userService.getAllUsers();
 	}
 	
 	@GET
-	@Secured
+	//@Secured
 	@Path("/{userId}")
 	public User getUser(@PathParam("userId") long id) {
 		return userService.getUser(id);
@@ -53,6 +53,12 @@ public class UserResource {
 	@Path("/{userId}")
 	public void deleteUser(@PathParam("userId") long id) {
 		userService.removeUser(id);
+	}
+	
+	@Path("/{userId}/likes")
+	public UserLikesResource getUserLikesResource() {
+		return new UserLikesResource();
+		
 	}
 
 }
