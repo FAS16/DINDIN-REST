@@ -19,7 +19,15 @@ public class Restaurant {
 	private int visits;
 	private String created;
 
-
+/*
+ * 1. Navn
+ * 2. Postnummer
+ * 3. Adresse
+ * 4. Budget (LAV = 20-100kr, MELLEM = 100-500 kr, HØJ = 500kr+)
+ * 5. Køkken (italiansk/mexicansk.. - kun et køkken)
+ * 
+ */
+	
 	public Restaurant() {
 
 	}

@@ -24,7 +24,7 @@ public class UserResource {
 	private UserService userService = new UserService();
 	
 	@GET
-	@Secured
+	//@Secured
 	public List<User> getUsers() {
 		return userService.getAllUsers();
 	}
@@ -32,12 +32,12 @@ public class UserResource {
 	@GET
 	//@Secured
 	@Path("/{userId}")
-	public User getUser(@PathParam("userId") long id) {
-		return userService.getUser(id);
+	public User getUser(@PathParam("userId") int id) {
+		return userService.getUserById(id);
 	}
 	
 	@POST
-	public User addUser(User user) {
+	public User addUser(User user) {  
 		return userService.addUser(user);
 	}
 	

@@ -32,12 +32,35 @@ public class UserDAOImp implements UserDAOI {
 	}
 	
 	@Override
-	public User selectUser(int id) throws SQLException {
+	public boolean checkIfUserExists(String username) throws SQLException {
+		
+		int existing = 0;
+		final String SELECT_USER = "SELECT EXISTS(SELECT 1 FROM users WHERE username = ?);";
+		prep = connector.getConnection().prepareStatement(SELECT_USER);
+		prep.setString(1, username);
+		ResultSet rs = prep.executeQuery();
+		
+		while (rs.next()) {
+
+			existing = rs.getInt("EXISTS(SELECT 1 FROM users WHERE username = '"+ username +"')");
+		}
+		System.out.println("User exists: " + existing);
+		
+		rs.close();
+		if(existing == 1) return true;
+		else {
+			return false;
+		}
+		
+	}
+	
+	@Override
+	public User selectUserById(int id) throws SQLException {
 		
 		User user = null;
 		final String SELECT_USER = "SELECT * FROM users WHERE id = ?;";
 		prep = connector.getConnection().prepareStatement(SELECT_USER);
-		prep.setLong(1, id);
+		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 
 		
@@ -48,6 +71,29 @@ public class UserDAOImp implements UserDAOI {
 		}
 		
 		System.out.println("DB: Retrieved user with id "+ id +" from database");
+		rs.close();
+		
+		
+		return user;
+	}
+	
+	@Override
+	public User selectUserByUsername(String username) throws SQLException {
+		
+		User user = null;
+		final String SELECT_USER = "SELECT * FROM users WHERE username = ?;";
+		prep = connector.getConnection().prepareStatement(SELECT_USER);
+		prep.setString(1, username);
+		ResultSet rs = prep.executeQuery();
+
+		
+		while (rs.next()) {
+
+			user = new User(rs.getInt("id"), rs.getString("username"), rs.getString("email"),
+					rs.getString("first_name"), rs.getString("last_name"), rs.getString("created"));
+		}
+		
+		System.out.println("DB: Retrieved user with username "+ username +" from database");
 		rs.close();
 		
 		

@@ -18,13 +18,14 @@ public class UserService {
 
 	private UserDAOImp userDAO;
 	private Map<Long, User> users = new HashMap<>();
-	
 
 	public UserService() {
 
 		userDAO = new UserDAOImp();
-//		users.put( 1L, new User(1, "Fahadbrugernav", "fahad@mail.dk", "Fahad", "Sajad", "i dag"));
-//		users.put( 2L, new User(2, "ANSO", "fahad@mail.dk", "Fahad", "Sajad", "i dag"));
+		// users.put( 1L, new User(1, "Fahadbrugernav", "fahad@mail.dk", "Fahad",
+		// "Sajad", "i dag"));
+		// users.put( 2L, new User(2, "ANSO", "fahad@mail.dk", "Fahad", "Sajad", "i
+		// dag"));
 
 	}
 
@@ -35,7 +36,6 @@ public class UserService {
 			for (User u : userDAO.selectAllUsers()) {
 				u.setLikedRestaurants(getLikedRestaurants(u.getId()));
 				users.put(u.getId(), u);
-				System.out.println("!!!!");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -48,17 +48,62 @@ public class UserService {
 	 * Eksempel på WebApplicationException, der ikke behøves at mappe Kan sende
 	 * Status.x, response.x osv.
 	 */
-	public User getUser(long id) {
+	public boolean checkIfUserIsInDatabase(String username) {
+		boolean existing = false;
+		try {
+			existing = userDAO.checkIfUserExists(username);
+			if (existing) {
+				System.out.println("DB: User with username " + username + " does exist in database");
+			} else {
+				System.out.println("DB: User with username " + username + " does NOT exist in database");
+			}	
+
+		} catch (SQLException e1) {
+
+			e1.printStackTrace();
+		}
+
+		return existing;
+	}
+	
+	public User getUserByUsername(String username) {
 		User user = null;
 		try {
-			user = userDAO.selectUser((int) id);
+			user = userDAO.selectUserByUsername(username);
 			if (user == null) {
 				// Lav respons
 				ErrorMessage e = new ErrorMessage("Not found", 404);
 				Response r = Response.status(Status.NOT_FOUND).entity(e).build();
 
 				// Kast respons
-				throw new WebApplicationException(r); // kunne også kaste NotFoundException(r); så behøvede man ikke at definerer status i ovenstående respons - se javadoc for WebApEx
+				throw new WebApplicationException(r); // kunne også kaste NotFoundException(r); så behøvede man ikke at
+														// definerer status i ovenstående respons - se javadoc for
+														// WebApEx
+			}
+
+		} catch (SQLException e1) {
+
+			e1.printStackTrace();
+		}
+
+		System.out.println("Got specific user: " + user.getId() + ", " + user.getFirstName());
+
+		return user;
+	}
+
+	public User getUserById(int id) {
+		User user = null;
+		try {
+			user = userDAO.selectUserById(id);
+			if (user == null) {
+				// Lav respons
+				ErrorMessage e = new ErrorMessage("Not found", 404);
+				Response r = Response.status(Status.NOT_FOUND).entity(e).build();
+
+				// Kast respons
+				throw new WebApplicationException(r); // kunne også kaste NotFoundException(r); så behøvede man ikke at
+														// definerer status i ovenstående respons - se javadoc for
+														// WebApEx
 			}
 
 		} catch (SQLException e1) {

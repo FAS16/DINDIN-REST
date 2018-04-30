@@ -10,7 +10,11 @@ public interface UserDAOI {
 
 	ArrayList<User> selectAllUsers() throws SQLException;
 	
-	User selectUser(int id) throws SQLException;
+	boolean checkIfUserExists(String username) throws SQLException;
+	
+	User selectUserById(int id) throws SQLException;
+	
+	User selectUserByUsername(String username) throws SQLException;
 
 	void insertUser(User user) throws SQLException;
 
