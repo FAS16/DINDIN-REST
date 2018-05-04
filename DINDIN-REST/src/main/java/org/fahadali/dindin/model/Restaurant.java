@@ -18,6 +18,8 @@ public class Restaurant {
 	private List<User> likers;
 	private int visits;
 	private String created;
+	private String phone;
+	private String website;
 
 /*
  * 1. Navn
@@ -32,7 +34,7 @@ public class Restaurant {
 
 	}
 
-	public Restaurant(long id, String name, int zipcode, String address, String cuisine, Budget budget, String created, int visits) {
+	public Restaurant(long id, String name, int zipcode, String address, String cuisine, Budget budget, String created, int visits, String phone, String website) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -43,6 +45,14 @@ public class Restaurant {
 		this.likers = new ArrayList<>();
 		this.visits = visits;
 		this.created = new Date().toString();
+		this.phone = phone;
+		this.website = website;
+	}
+	
+	public Restaurant(int zipcode, String cuisine, Budget budget) {
+		this.zipcode = zipcode;
+		this.cuisine = cuisine;
+		this.budget = budget;
 	}
 
 	public long getId() {
@@ -117,5 +127,35 @@ public class Restaurant {
 	public void setCreated(Date created) {
 		this.created = created.toString();
 	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public void setCreated(String created) {
+		this.created = created;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+	
+	@Override
+	public String toString() {
+		
+		return "{"+this.name+", "+ this.zipcode+", "+ this.cuisine + ", "+this.budget.getValue()+"}";
+	}
+	
+	
+	
+	
 
 }

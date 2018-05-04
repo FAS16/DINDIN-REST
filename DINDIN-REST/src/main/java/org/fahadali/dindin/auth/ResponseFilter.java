@@ -13,6 +13,7 @@ public class ResponseFilter implements ContainerResponseFilter {
 	
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
+    	System.out.println("ResponseFilter invoked***");
         responseContext.getHeaders().add(
                 "Access-Control-Allow-Origin", "*");
         responseContext.getHeaders().add(

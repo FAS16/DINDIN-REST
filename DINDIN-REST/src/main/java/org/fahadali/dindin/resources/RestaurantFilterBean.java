@@ -1,5 +1,7 @@
 package org.fahadali.dindin.resources;
 
+import java.util.List;
+
 import javax.ws.rs.QueryParam;
 
 
@@ -10,15 +12,33 @@ import javax.ws.rs.QueryParam;
 
 public class RestaurantFilterBean {
 	
-	private @QueryParam("zipcode") int zipcode; 
+	private @QueryParam("zipcode") List<Integer> zipcodes;
+	private @QueryParam("cuisine") List<String> cuisines;
+	private @QueryParam("budget") List<String> budget;
 	private @QueryParam("start") int start;
 	private @QueryParam("size") int size;
 	
-	public int getZipcode() {
-		return zipcode;
+	public List<Integer> getZipcodes() {
+		return zipcodes;
 	}
-	public void setZipcode(int zipcode) {
-		this.zipcode = zipcode;
+	public void setZipcode(List<Integer> zipcodes) {
+		this.zipcodes = zipcodes;
+	}
+	
+	public List<String> getCuisines() {
+		return cuisines;
+	}
+	public void setCuisines(List<String> cuisines) {
+		this.cuisines = cuisines;
+	}
+	public List<String> getBudget() {
+		return budget;
+	}
+	public void setBudget(List<String> budget) {
+		this.budget = budget;
+	}
+	public void setZipcodes(List<Integer> zipcodes) {
+		this.zipcodes = zipcodes;
 	}
 	public int getStart() {
 		return start;

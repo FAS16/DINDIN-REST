@@ -107,7 +107,7 @@ public class UserDAOImp implements UserDAOI {
 
 		prep = connector.getConnection().prepareStatement(INSERT_USER);
 		prep.setLong(1, u.getId());
-		prep.setString(2, u.getUserName());
+		prep.setString(2, u.getUsername());
 		prep.setString(3, u.getEmail());
 		prep.setString(4, u.getFirstName());
 		prep.setString(5, u.getLastName());
@@ -124,7 +124,7 @@ public class UserDAOImp implements UserDAOI {
 				+ "last_name = ? WHERE id = ?;";
 
 		prep = connector.getConnection().prepareStatement(UPDATE_USER);
-		prep.setString(1, u.getUserName());
+		prep.setString(1, u.getUsername());
 		prep.setString(2, u.getEmail());
 		prep.setString(3, u.getFirstName());
 		prep.setString(4, u.getLastName());
@@ -148,9 +148,9 @@ public class UserDAOImp implements UserDAOI {
 
 		while (rs.next()) {
 			
-			restaurants.add(new Restaurant(rs.getLong("id"), rs.getString("name"), rs.getInt("zipcode"),
+			restaurants.add(new Restaurant(rs.getInt("id"), rs.getString("name"), rs.getInt("zipcode"),
 					rs.getString("address"), rs.getString("cuisine"), Budget.valueOf(rs.getString("budget")), rs.getString("created"),
-					rs.getInt("visits")));
+					rs.getInt("visits"), rs.getString("phone"), rs.getString("website")));
 		}
 		System.out.println("DB: Retrieved liked restaurants of user with id " +userId+ " from database");
 		rs.close();

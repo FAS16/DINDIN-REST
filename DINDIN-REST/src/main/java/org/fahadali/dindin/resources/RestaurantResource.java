@@ -2,6 +2,7 @@ package org.fahadali.dindin.resources;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -9,6 +10,7 @@ import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -59,14 +61,16 @@ public class RestaurantResource {
 		public List<Restaurant> getJsonRestaurants(@BeanParam RestaurantFilterBean filterBean ) {
 			System.out.println("JSON methods called");
 			//@QueryParam er til filtrering - f.eks.: /restaurants?zipcode=2300
-			if(filterBean.getZipcode() > 0) {
-				return restaurantService.getRestaurantsByZipcode(filterBean.getZipcode());
+		
+			if(filterBean.getZipcodes().size() > 0 || filterBean.getCuisines().size() > 0 || filterBean.getBudget().size() > 0) {
+				System.out.println("QUERIES RECIEVED "+filterBean.getZipcodes().toString() +", " + filterBean.getCuisines().toString() + ", " + filterBean.getBudget().toString());
+				
+				List<Restaurant> requested = restaurantService.getRestaurantsByQuery(filterBean.getZipcodes(), filterBean.getCuisines(), filterBean.getBudget());
+				if(requested.isEmpty()) throw new NotFoundException();
+				System.out.println("SENDER FØLGENDE TIL KLIENTEN" + requested.toString());
+				 return requested;
 			}
-			
-			if(filterBean.getStart() >= 0 && filterBean.getSize()> 0) {
-				return restaurantService.getRestaurantsPaginated(filterBean.getStart(), filterBean.getSize());
-			}
-			
+
 			
 			return restaurantService.getAllRestaurants();
 		}
