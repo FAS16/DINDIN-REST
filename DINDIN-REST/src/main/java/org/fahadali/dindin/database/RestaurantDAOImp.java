@@ -56,17 +56,18 @@ public class RestaurantDAOImp implements RestaurantDAOI {
 	@Override
 	public void insertRestaurant(Restaurant restaurant) throws SQLException {
 		final String INSERT_USER = "INSERT INTO restaurants "
-				+ "(id, name, zipcode, address, cuisine, budget, created, visits) " + "VALUES (?,?,?,?,?,?,?,?);";
+				+ "(name, zipcode, address, cuisine, budget, created, visits, phone, website) " + "VALUES (?,?,?,?,?,?,?,?,?);";
 
 		prep = connector.getConnection().prepareStatement(INSERT_USER);
-		prep.setLong(1, restaurant.getId());
-		prep.setString(2, restaurant.getName());
-		prep.setInt(3, restaurant.getZipcode());
-		prep.setString(4, restaurant.getAddress());
-		prep.setString(5, restaurant.getCuisine());
-		prep.setString(6, restaurant.getBudget().getValue());
-		prep.setString(7, restaurant.getCreated());
-		prep.setInt(8, restaurant.getVisits());
+		prep.setString(1, restaurant.getName());
+		prep.setInt(2, restaurant.getZipcode());
+		prep.setString(3, restaurant.getAddress());
+		prep.setString(4, restaurant.getCuisine());
+		prep.setString(5, restaurant.getBudget().getValue());
+		prep.setString(6, restaurant.getCreated());
+		prep.setInt(7, restaurant.getVisits());
+		prep.setString(8, restaurant.getPhone());
+		prep.setString(9, restaurant.getWebsite());
 		prep.executeUpdate();
 		prep.close();
 		System.out.println("DB: Restaurant inserted to database");
@@ -76,7 +77,7 @@ public class RestaurantDAOImp implements RestaurantDAOI {
 	@Override
 	public void updateRestaurant(Restaurant restaurant) throws SQLException {
 		final String UPDATE_RESTAURANT = "UPDATE restaurants " + "SET name = ?, zipcode = ?, address = ?, "
-				+ "cuisine = ?, budget = ?, created = ?, visits = ? WHERE id = ?;";
+				+ "cuisine = ?, budget = ?, created = ?, visits = ?, phone = ?, website = ? WHERE id = ?;";
 
 		prep = connector.getConnection().prepareStatement(UPDATE_RESTAURANT);
 		prep.setString(1, restaurant.getName());
@@ -86,7 +87,9 @@ public class RestaurantDAOImp implements RestaurantDAOI {
 		prep.setString(5, restaurant.getBudget().getValue());
 		prep.setString(6, restaurant.getCreated());
 		prep.setInt(7, restaurant.getVisits());
-		prep.setLong(8, restaurant.getId());
+		prep.setString(8, restaurant.getPhone());
+		prep.setString(9, restaurant.getWebsite());
+		prep.setLong(10, restaurant.getId());
 		prep.executeUpdate();
 		prep.close();
 		System.out.println("DB: Restaurant updated in database");

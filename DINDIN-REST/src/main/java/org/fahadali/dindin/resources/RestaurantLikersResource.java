@@ -26,8 +26,4 @@ public class RestaurantLikersResource {
 		return restaurantService.getAllLikers(restaurantId);
 		
 	}
-
-	
-	
-
 }

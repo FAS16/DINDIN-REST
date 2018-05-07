@@ -97,7 +97,6 @@ public class RestaurantService {
 		if (!cuisines.isEmpty()) {
 			for (int l = 0; l < reqRestaurants.size(); l++) {
 				for (int m = 0; m < cuisines.size(); m++) {
-
 					if (reqRestaurants.get(l) != null) {
 						if (!(cuisines.contains(reqRestaurants.get(l).getCuisine().toLowerCase()))) {
 
@@ -111,7 +110,6 @@ public class RestaurantService {
 
 		if (!budget.isEmpty()) {
 			for (int n = 0; n < reqRestaurants.size(); n++) {
-
 				for (int o = 0; o < budget.size(); o++) {
 					if (reqRestaurants.get(n) != null) {
 						if (!(budget.contains(reqRestaurants.get(n).getBudget().getValue().toLowerCase()))) {
@@ -124,8 +122,7 @@ public class RestaurantService {
 		}
 
 		System.out.println("FØR NULL FJERNES: " + reqRestaurants.toString());
-		while (reqRestaurants.remove(null))
-			;
+		while (reqRestaurants.remove(null));
 		System.out.println("EFT NULL FJERNES: " + reqRestaurants.toString());
 		return reqRestaurants;
 	}
@@ -153,7 +150,7 @@ public class RestaurantService {
 	}
 
 	public Restaurant addRestaurant(Restaurant restaurant) {
-		restaurant.setId(restaurants.size() + 1);
+//		restaurant.setId(restaurants.size() + 1);
 		restaurants.add(restaurant);
 		try {
 			restaurantDAO.insertRestaurant(restaurant);
@@ -189,12 +186,13 @@ public class RestaurantService {
 				toBeRemoved = restaurants.get(i);
 				restaurants.remove(i);
 			}
+		}
 			try {
 				restaurantDAO.deleteRestaurant(toBeRemoved);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
+		
 		return toBeRemoved;
 	}
 

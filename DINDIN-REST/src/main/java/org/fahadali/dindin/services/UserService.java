@@ -17,11 +17,13 @@ import org.fahadali.dindin.model.User;
 public class UserService {
 
 	private UserDAOImp userDAO;
-	private Map<Long, User> users = new HashMap<>();
+	private ArrayList<User> users;
 
 	public UserService() {
 
 		userDAO = new UserDAOImp();
+		this.users = getAllUsers();
+		
 		// users.put( 1L, new User(1, "Fahadbrugernav", "fahad@mail.dk", "Fahad",
 		// "Sajad", "i dag"));
 		// users.put( 2L, new User(2, "ANSO", "fahad@mail.dk", "Fahad", "Sajad", "i
@@ -29,19 +31,20 @@ public class UserService {
 
 	}
 
-	public List<User> getAllUsers() {
-
+	public ArrayList<User> getAllUsers() {
+		ArrayList<User> users = null;
 		try {
-
-			for (User u : userDAO.selectAllUsers()) {
+			users =  userDAO.selectAllUsers();
+			for (User u : users) {
 				u.setLikedRestaurants(getLikedRestaurants(u.getId()));
-				users.put(u.getId(), u);
+				System.out.println(u.getLikedRestaurants());
 			}
+			return users;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return new ArrayList<User>(users.values());
+		return null;
 	}
 
 	/*
@@ -70,6 +73,7 @@ public class UserService {
 		User user = null;
 		try {
 			user = userDAO.selectUserByUsername(username);
+			user.setLikedRestaurants(this.getLikedRestaurants(user.getId()));
 			if (user == null) {
 				// Lav respons
 				ErrorMessage e = new ErrorMessage("Not found", 404);
@@ -95,6 +99,7 @@ public class UserService {
 		User user = null;
 		try {
 			user = userDAO.selectUserById(id);
+			user.setLikedRestaurants(this.getLikedRestaurants(user.getId()));
 			if (user == null) {
 				// Lav respons
 				ErrorMessage e = new ErrorMessage("Not found", 404);
@@ -117,12 +122,12 @@ public class UserService {
 	}
 
 	public User addUser(User user) {
-		user.setId(users.size() + 1);
-		users.put(user.getId(), user);
+//		user.setId(users.size() + 1);
+		users.add(user);
 
 		try {
 			userDAO.insertUser(user);
-			getAllUsers();
+			this.users = getAllUsers();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -133,7 +138,13 @@ public class UserService {
 		if (user.getId() <= 0) {
 			return null;
 		}
-		users.put(user.getId(), user);
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).getId() == user.getId()) {
+				users.set(i, user);
+				break;
+			}
+		}
+		
 		try {
 			userDAO.updateUser(user);
 		} catch (SQLException e) {
@@ -143,13 +154,21 @@ public class UserService {
 	}
 
 	public User removeUser(long id) {
-		User user = users.get(id);
+		User toBeRemoved = null;
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).getId() == id) {
+				toBeRemoved = users.get(i);
+				users.remove(i);
+			}
+		}
+		
 		try {
-			userDAO.deleteUser(user);
+			userDAO.deleteUser(toBeRemoved);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return users.remove(id);
+		
+		return toBeRemoved;
 	}
 
 	public ArrayList<Restaurant> getLikedRestaurants(long id) {
@@ -162,8 +181,76 @@ public class UserService {
 
 	}
 
-	public int numOfUsers() {
-		return this.users.size();
+	public User likeRestaurant(long userId, long restaurantId) {
+		if(restaurantId <= 0 || userId <= 0 ) {
+			return null;
+		}
+		
+		try {
+			userDAO.insertLikedRestaurant(userId, restaurantId);
+			this.users = getAllUsers();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		for(User u: this.users) {
+			if(u.getId() == userId)
+				return u;
+		}
+		return null;
 	}
+	
+	public User unLikeRestaurant(long userId, long restaurantId) {
+		if(restaurantId <= 0 || userId <= 0 ) {
+			return null;
+		}
+		
+		try {
+			
+			userDAO.deleteLikedRestaurant(userId, restaurantId);
+			this.users = getAllUsers();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		for(User u: this.users) {
+			if(u.getId() == userId)
+				return u;
+		}
+		return null;
+	}
+	
+//	public User updateUser(User user) {
+//		if (user.getId() <= 0) {
+//			return null;
+//		}
+//		for (int i = 0; i < users.size(); i++) {
+//			if (users.get(i).getId() == user.getId()) {
+//				users.set(i, user);
+//				break;
+//			}
+//		}
+//		
+//		try {
+//			userDAO.updateUser(user);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return user;
+//	}
+//	
+//	ublic User addUser(User user) {
+////		user.setId(users.size() + 1);
+//		users.add(user);
+//
+//		try {
+//			userDAO.insertUser(user);
+//			this.users = getAllUsers();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return user;
+//	}
 
 }

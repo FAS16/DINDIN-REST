@@ -139,7 +139,7 @@ public class UserDAOImp implements UserDAOI {
 		ArrayList<Restaurant> restaurants = new ArrayList<>();
 		final String SELECT_ALL_LIKED_RESTAURANTS = "SELECT restaurants.id, restaurants.name, restaurants.zipcode, "
 				+ "restaurants.address, restaurants.cuisine, restaurants.budget, "
-				+ "restaurants.created, restaurants.visits " + "FROM likes INNER JOIN restaurants "
+				+ "restaurants.created, restaurants.visits, restaurants.phone, restaurants.website " + "FROM likes INNER JOIN restaurants "
 				+ "ON restaurants.id = likes.restaurant_id WHERE likes.user_id = ?";
 
 		prep = connector.getConnection().prepareStatement(SELECT_ALL_LIKED_RESTAURANTS);
@@ -159,12 +159,13 @@ public class UserDAOImp implements UserDAOI {
 	}
 
 	@Override
-	public void insertLikedRestaurant(User u, Restaurant r) throws SQLException {
+	public void insertLikedRestaurant(long userId, long restaurantId) throws SQLException {
+		System.out.println("DB: Inserting like into database for user " + userId);
 		final String INSERT_LIKED_RESTAURANT = "INSERT INTO likes (user_id, restaurant_id) VALUES (?, ?);";
 
 		prep = connector.getConnection().prepareStatement(INSERT_LIKED_RESTAURANT);
-		prep.setLong(1, u.getId());
-		prep.setLong(2, r.getId());
+		prep.setLong(1, userId);
+		prep.setLong(2, restaurantId);
 		prep.executeUpdate();
 		prep.close();
 		System.out.println("DB: New like inserted into database");
@@ -184,6 +185,20 @@ public class UserDAOImp implements UserDAOI {
 		prep.close();
 		System.out.println("DB: User with id "+user.getId()+" succesfully deleted in database");
 		
+		
+	}
+
+	@Override
+	public void deleteLikedRestaurant(long userId, long restaurantId) throws SQLException {
+		
+		final String DELETE_LIKE = "DELETE FROM likes WHERE user_id = ? AND restaurant_id = ?;";
+		
+		prep = connector.getConnection().prepareStatement(DELETE_LIKE);
+		prep.setLong(1, userId);
+		prep.setLong(2, restaurantId);
+		prep.executeUpdate();
+		prep.close();
+		System.out.println("DB: Restaurant Like with id " + restaurantId + " has been removed from User " + userId);
 		
 	}
 

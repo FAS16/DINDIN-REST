@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.fahadali.dindin.auth.Secured;
+import org.fahadali.dindin.model.Restaurant;
 import org.fahadali.dindin.model.User;
 import org.fahadali.dindin.services.UserService;
 
@@ -53,6 +54,15 @@ public class UserResource {
 	@Path("/{userId}")
 	public void deleteUser(@PathParam("userId") long id) {
 		userService.removeUser(id);
+	}
+	
+	@PUT
+	@Path("{userId}/newlike") 
+	public User updateLikes(@PathParam("userId") long id, Restaurant restaurant) {
+		
+		return userService.likeRestaurant(id,restaurant.getId());
+	
+		
 	}
 	
 	@Path("/{userId}/likes")

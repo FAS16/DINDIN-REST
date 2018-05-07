@@ -3,6 +3,7 @@ package org.fahadali.dindin.resources;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -55,13 +56,12 @@ public class RestaurantResource {
 //		return restaurantService.getAllRestaurants();
 //	}
 	
-	//BeanParam eksempel
+	/*
+	 * Med BeanParam
+	 */
 		@GET
 		@Produces(MediaType.APPLICATION_JSON) //returns/supports json & xml
-		public List<Restaurant> getJsonRestaurants(@BeanParam RestaurantFilterBean filterBean ) {
-			System.out.println("JSON methods called");
-			//@QueryParam er til filtrering - f.eks.: /restaurants?zipcode=2300
-		
+		public List<Restaurant> getRestaurants(@BeanParam RestaurantFilterBean filterBean ) {
 			if(filterBean.getZipcodes().size() > 0 || filterBean.getCuisines().size() > 0 || filterBean.getBudget().size() > 0) {
 				System.out.println("QUERIES RECIEVED "+filterBean.getZipcodes().toString() +", " + filterBean.getCuisines().toString() + ", " + filterBean.getBudget().toString());
 				
@@ -95,7 +95,7 @@ public class RestaurantResource {
 //		
 	
 	@GET
-	@Path("/{restaurantId}") //Denne del af URLen er variabel
+	@Path("/{restaurantId}") 
 	public Restaurant getRestaurant(@PathParam("restaurantId") long id) {
 		return restaurantService.getRestaurant(id);
 	}
@@ -117,12 +117,13 @@ public class RestaurantResource {
 	 */
 	@POST
 	public Response addRestaurant(Restaurant restaurant, @Context UriInfo uriInfo) { //svaret bliver konverteret til json
-		
+		restaurant.setCreated(new Date().toString());
+		System.out.println("POST: " + restaurant.getName());
 		Restaurant newRestaurant = restaurantService.addRestaurant(restaurant);
 		String newId = String.valueOf(newRestaurant.getId());
-		URI uri = uriInfo.getAbsolutePathBuilder().path(newId).build();
+//		URI uri = uriInfo.getAbsolutePathBuilder().path(newId).build();
 		
-		return Response.created(uri)
+		return Response.status(201)
 		.entity(newRestaurant)
 		.build();
 	}
@@ -137,7 +138,6 @@ public class RestaurantResource {
 	
 	@DELETE
 	@Path("/{restaurantId}")
-	@Secured
 	public void deleteRestaurant(@PathParam("restaurantId") long id) {
 		restaurantService.removeRestaurant(id);
 	}

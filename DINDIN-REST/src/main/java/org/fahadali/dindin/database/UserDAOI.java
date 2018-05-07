@@ -23,7 +23,9 @@ public interface UserDAOI {
 	void deleteUser(User user) throws SQLException;
 	
 	ArrayList<Restaurant> selectAllLikedRestaurants(long userId) throws SQLException;
-	
-	void insertLikedRestaurant(User user,Restaurant restaurants) throws SQLException;
+
+	void insertLikedRestaurant(long userId, long restaurantId) throws SQLException;
+
+	void deleteLikedRestaurant(long userId, long restaurantId) throws SQLException;
 
 }

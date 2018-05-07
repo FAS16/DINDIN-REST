@@ -107,6 +107,12 @@ public class User {
 	public void setCreated(String created) {
 		this.created = created;
 	}
+	
+	@Override
+	public String toString() {
+		
+		return "{"+this.id+", "+this.username+"}";
+	}
 
 
 }
