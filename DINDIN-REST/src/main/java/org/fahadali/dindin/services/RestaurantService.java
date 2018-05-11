@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.NotFoundException;
-
-import org.fahadali.dindin.database.DatabaseClass;
 import org.fahadali.dindin.database.RestaurantDAOImp;
 import org.fahadali.dindin.exception.DataNotFoundException;
 import org.fahadali.dindin.model.Budget;

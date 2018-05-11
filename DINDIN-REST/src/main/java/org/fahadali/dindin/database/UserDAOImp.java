@@ -139,7 +139,7 @@ public class UserDAOImp implements UserDAOI {
 		ArrayList<Restaurant> restaurants = new ArrayList<>();
 		final String SELECT_ALL_LIKED_RESTAURANTS = "SELECT restaurants.id, restaurants.name, restaurants.zipcode, "
 				+ "restaurants.address, restaurants.cuisine, restaurants.budget, "
-				+ "restaurants.created, restaurants.visits, restaurants.phone, restaurants.website " + "FROM likes INNER JOIN restaurants "
+				+ "restaurants.created, restaurants.visits, restaurants.phone, restaurants.website, restaurants.instagram, restaurants.description " + "FROM likes INNER JOIN restaurants "
 				+ "ON restaurants.id = likes.restaurant_id WHERE likes.user_id = ?";
 
 		prep = connector.getConnection().prepareStatement(SELECT_ALL_LIKED_RESTAURANTS);
@@ -150,7 +150,7 @@ public class UserDAOImp implements UserDAOI {
 			
 			restaurants.add(new Restaurant(rs.getInt("id"), rs.getString("name"), rs.getInt("zipcode"),
 					rs.getString("address"), rs.getString("cuisine"), Budget.valueOf(rs.getString("budget")), rs.getString("created"),
-					rs.getInt("visits"), rs.getString("phone"), rs.getString("website")));
+					rs.getInt("visits"), rs.getString("phone"), rs.getString("website"), rs.getString("instagram"), rs.getString("description")));
 		}
 		System.out.println("DB: Retrieved liked restaurants of user with id " +userId+ " from database");
 		rs.close();

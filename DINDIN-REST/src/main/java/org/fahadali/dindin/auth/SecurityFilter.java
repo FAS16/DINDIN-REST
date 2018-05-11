@@ -17,10 +17,10 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
 /*
- * Filter defined for requests, that require authentication
+ * Filter defineret til forespørgsler, der kræver autorisation
  * 
  */
-//Kan der godt være flere filtre
+
 @Secured
 @Provider
 @Priority(Priorities.AUTHENTICATION)
@@ -44,8 +44,7 @@ public class SecurityFilter implements ContainerRequestFilter {
 		}
 			// Retrieving the token from the Authorization header
 			System.out.println("Auth header found: " + authHeader);
-			//String token = authHeader.substring("AUTHORIZATION_HEADER_PREFIX".length());
-			String token = authHeader.replaceFirst(AUTHORIZATION_HEADER_PREFIX, "");
+			String token = authHeader.replaceFirst(AUTHORIZATION_HEADER_PREFIX, "").trim();
 			System.out.println("Token retrieved: " + token);
 
 			try {

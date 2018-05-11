@@ -24,7 +24,7 @@ public class RestaurantDAOImp implements RestaurantDAOI {
 
 			restaurants.add(new Restaurant(rs.getInt("id"), rs.getString("name"), rs.getInt("zipcode"),
 					rs.getString("address"), rs.getString("cuisine"), Budget.valueOf(rs.getString("budget")), rs.getString("created"),
-					rs.getInt("visits"), rs.getString("phone"), rs.getString("website")));
+					rs.getInt("visits"), rs.getString("phone"), rs.getString("website"), rs.getString("instagram"), rs.getString("description")));
 		}
 		System.out.println("DB: Retrieved restaurants from database");
 		rs.close();
@@ -44,7 +44,7 @@ public class RestaurantDAOImp implements RestaurantDAOI {
 
 			restaurant = new Restaurant(rs.getInt("id"), rs.getString("name"), rs.getInt("zipcode"),
 					rs.getString("address"), rs.getString("cuisine"), Budget.valueOf(rs.getString("budget")), rs.getString("created"),
-					rs.getInt("visits"), rs.getString("phone"), rs.getString("website"));
+					rs.getInt("visits"), rs.getString("phone"), rs.getString("website"), rs.getString("instagram"), rs.getString("description"));
 		}
 
 		System.out.println("DB: Retrieved restaurant with id " + id + " from database");

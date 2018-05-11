@@ -6,7 +6,7 @@ import javax.ws.rs.QueryParam;
 
 
 /*
- * Eksempel på hvordan man bruger BeanParam
+ * Bruger BeanParam
  * 
  */
 

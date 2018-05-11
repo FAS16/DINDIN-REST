@@ -188,7 +188,7 @@ public class UserService {
 		
 		try {
 			userDAO.insertLikedRestaurant(userId, restaurantId);
-			this.users = getAllUsers();
+			this.users = getAllUsers(); 
 		} catch (SQLException e) {
 			
 			e.printStackTrace();

@@ -40,43 +40,20 @@ public class Connector {
 		return this.DATABASE;
 	}
 
-	/*
-	 * used to create a result set of a preparedstatement to be executed in the
-	 * database.
-	 * 
-	 * @param query is the result set of the preparedstatement to be executed.
-	 * 
-	 * @return rs is the result set executed from the preparedstatement.
-	 * 
-	 * @throws SQLException if no connection can be made.
-	 */
+	
 	public ResultSet doQuery(String query) throws SQLException {
 		PreparedStatement prepstmt = con.prepareStatement(query);
 		ResultSet rs = prepstmt.executeQuery();
 		return rs;
 	}
 
-	/*
-	 * used to create an updating statement.
-	 * 
-	 * @param query is the updating statement.
-	 * 
-	 * @throws SQLException if no connection can be made.
-	 */
+	
 	public void doUpdate(String query) throws SQLException {
 		Statement stmt = con.createStatement();
 		stmt.executeUpdate(query);
 	}
 
-	/*
-	 * used to create a prepared statement.
-	 * 
-	 * @param query is the prepared statement to create.
-	 * 
-	 * @return prepstmt is the prepared statement created.
-	 * 
-	 * @throws SQLException if no connection can be made.
-	 */
+
 	public PreparedStatement doPreparedStmt(String query) throws SQLException {
 		PreparedStatement prepstmt = con.prepareStatement(query);
 		return prepstmt;

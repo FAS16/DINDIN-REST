@@ -20,21 +20,21 @@ public class Restaurant {
 	private String created;
 	private String phone;
 	private String website;
+	private String instagram;
+	private String description;
 
-/*
- * 1. Navn
- * 2. Postnummer
- * 3. Adresse
- * 4. Budget (LAV = 20-100kr, MELLEM = 100-500 kr, HØJ = 500kr+)
- * 5. Køkken (italiansk/mexicansk.. - kun et køkken)
- * 
- */
-	
+	/*
+	 * 1. Navn 2. Postnummer 3. Adresse 4. Budget (LAV = 20-100kr, MELLEM = 100-500
+	 * kr, HØJ = 500kr+) 5. Køkken (italiansk/mexicansk.. - kun et køkken)
+	 * 
+	 */
+
 	public Restaurant() {
 
 	}
 
-	public Restaurant(long id, String name, int zipcode, String address, String cuisine, Budget budget, String created, int visits, String phone, String website) {
+	public Restaurant(long id, String name, int zipcode, String address, String cuisine, Budget budget, String created,
+			int visits, String phone, String website, String instagram, String description) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -47,8 +47,10 @@ public class Restaurant {
 		this.created = new Date().toString();
 		this.phone = phone;
 		this.website = website;
+		this.instagram = instagram;
+		this.description = description;
 	}
-	
+
 	public Restaurant(int zipcode, String cuisine, Budget budget) {
 		this.zipcode = zipcode;
 		this.cuisine = cuisine;
@@ -102,7 +104,6 @@ public class Restaurant {
 	public void setCuisine(String cuisine) {
 		this.cuisine = cuisine;
 	}
-	
 
 	public List<User> getLikers() {
 		return likers;
@@ -147,15 +148,27 @@ public class Restaurant {
 	public void setWebsite(String website) {
 		this.website = website;
 	}
-	
+
+	public String getInstagram() {
+		return instagram;
+	}
+
+	public void setInstagram(String instagram) {
+		this.instagram = instagram;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public String toString() {
-		
-		return "{"+this.name+", "+ this.zipcode+", "+ this.cuisine + ", "+this.budget.getValue()+"}";
+
+		return "{" + this.name + ", " + this.zipcode + ", " + this.cuisine + ", " + this.budget.getValue() + "}";
 	}
-	
-	
-	
-	
 
 }

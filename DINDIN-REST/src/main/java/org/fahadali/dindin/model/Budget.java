@@ -16,27 +16,9 @@ public enum Budget /* implements Serializable */ {
 	private Budget() {
 
 	}
-	
-	//Transient - Jsonignore
 
-	// @JsonValue
 	public String getValue() {
 		return this.name();
-	}
-
-	//Test
-	public static void main(String[] args) {
-		String l = "LOW";
-		String m = "MEDIUM";
-		String h = "HIGH";
-
-		Budget b = Budget.valueOf(l);
-
-		System.out.println(b.getValue());
-
-		System.out.println(b);
-		System.out.println(Budget.valueOf(m));
-		System.out.println(Budget.valueOf(h));
 	}
 
 }

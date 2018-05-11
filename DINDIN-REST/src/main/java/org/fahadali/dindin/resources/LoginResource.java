@@ -1,10 +1,6 @@
 package org.fahadali.dindin.resources;
 
-import java.rmi.RemoteException;
-
 import java.security.Key;
-
-import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -25,11 +21,6 @@ import brugerautorisation.transport.rmi.Brugeradmin;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
-/*
- * TODO
- * Add user to database, when he is authorized.
- */
 
 @Path("login")
 public class LoginResource {
@@ -60,11 +51,9 @@ public class LoginResource {
 
 			// Issue token
 			String token = createJWT(credentials.getUsername());
+			System.out.println("Issuing token: " + token);
 
-			// Return token
-			Response res = Response.ok().entity(user).header("Authorization", "Bearer " + token)
-					.header("Access-Control-Expose-Headers", "Authorization").build();
-
+			Response res = Response.ok().entity(user).header("Authorization", "Bearer " + token).build();
 			return res;
 
 		} catch (Exception e) {
