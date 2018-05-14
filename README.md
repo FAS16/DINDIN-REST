@@ -5,3 +5,7 @@ Udviklet ifm. kurset 62596 Distribuerede systemer F18.
 
 Eksempel på ikke-beskyttet ressource:
 - http://130.225.170.248:8080/dindin/webapi/restaurants
+
+<b>WADL:</b>
+- http://130.225.170.248:8080/dindin/webapi/application.wadl
+
