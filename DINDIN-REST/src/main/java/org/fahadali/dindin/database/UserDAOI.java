@@ -10,7 +10,11 @@ public interface UserDAOI {
 
 	ArrayList<User> selectAllUsers() throws SQLException;
 	
-	User selectUser(int id) throws SQLException;
+	boolean checkIfUserExists(String username) throws SQLException;
+	
+	User selectUserById(int id) throws SQLException;
+	
+	User selectUserByUsername(String username) throws SQLException;
 
 	void insertUser(User user) throws SQLException;
 
@@ -19,7 +23,9 @@ public interface UserDAOI {
 	void deleteUser(User user) throws SQLException;
 	
 	ArrayList<Restaurant> selectAllLikedRestaurants(long userId) throws SQLException;
-	
-	void insertLikedRestaurant(User user,Restaurant restaurants) throws SQLException;
+
+	void insertLikedRestaurant(long userId, long restaurantId) throws SQLException;
+
+	void deleteLikedRestaurant(long userId, long restaurantId) throws SQLException;
 
 }

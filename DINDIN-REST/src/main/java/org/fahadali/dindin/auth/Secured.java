@@ -9,7 +9,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /*
- * Dette interface har ansvaret for "name-binding", altså er det en annotation til at binde til filteret
+ * Dette interface har ansvaret for "name-binding", altså er det en annotation til at binde til Securityfilteret
  */
 
 @NameBinding

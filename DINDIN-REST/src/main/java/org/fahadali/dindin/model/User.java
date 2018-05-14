@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class User {
 
 	private long id;
-	private String userName;	
+	private String username;	
 	private String email;
 	private String firstName;
 	private String lastName;
@@ -22,10 +22,21 @@ public class User {
 
 	}
 
-	public User(long id, String userName, String email, String firstName, String lastName, String created) {
+	public User(long id, String userame, String email, String firstName, String lastName, String created) {
 		super();
 		this.id = id;
-		this.userName = userName;
+		this.username = userame;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.likedRestaurants = new ArrayList<>();
+		this.created = created;
+	}
+	
+	//New user constructor
+	public User(String username, String email, String firstName, String lastName) {
+		super();
+		this.username = username;
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -41,12 +52,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String userName) {
+		this.username = userName;
 	}
 
 	public String getEmail() {
@@ -93,8 +104,15 @@ public class User {
 		return created;
 	}
 
-	public void setCreated(Date created) {
-		this.created = created.toString();
+	public void setCreated(String created) {
+		this.created = created;
 	}
+	
+	@Override
+	public String toString() {
+		
+		return "{"+this.id+", "+this.username+"}";
+	}
+
 
 }

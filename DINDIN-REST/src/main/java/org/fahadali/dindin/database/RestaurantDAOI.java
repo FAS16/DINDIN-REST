@@ -15,9 +15,9 @@ public interface RestaurantDAOI {
 	void insertRestaurant(Restaurant restaurant) throws SQLException;
 
 	void updateRestaurant(Restaurant restaurant) throws SQLException;
-	
+
 	void deleteRestaurant(Restaurant restaurant) throws SQLException;
 
-	ArrayList<User> selectAllLikers(Restaurant restaurant) throws SQLException;
+	ArrayList<User> selectAllLikers(long restaurantId) throws SQLException;
 
 }

@@ -1,7 +1,10 @@
 package brugerautorisation.data;
 
 import java.io.*;
+
 import java.util.HashMap;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Bruger implements Serializable {
     // Vigtigt: Sæt versionsnummer så objekt kan læses selvom klassen er ændret!
@@ -15,8 +18,10 @@ public class Bruger implements Serializable {
     public String studeretning = "ukendt";
     public String fornavn = "test";
     public String efternavn = "testesen";
-    public String adgangskode;
     public HashMap<String, Object> ekstraFelter = new HashMap<>();
+    
+    @JsonIgnore
+    public String adgangskode;
 
     public String toString() {
         return brugernavn + "/" + adgangskode;
