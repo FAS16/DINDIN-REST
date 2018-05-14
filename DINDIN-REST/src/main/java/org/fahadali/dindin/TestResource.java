@@ -20,6 +20,6 @@ public class TestResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
-        return "Virker!";
+        return "Virker! ";
     }
 }
