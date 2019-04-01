@@ -1,14 +1,30 @@
-# DINDIN RESTful webservice (JAX-RS)
+# DINDIN Restful webservice (API)
 
-Udviklet ifm. kurset 62596 Distribuerede systemer F18. 
-<br> Idriftsat på: http://130.225.170.248:8080/ <br>
+This Rest API is developed for the DINDIN Angular Application. 
 
-<b>Eksempel på ikke-beskyttet ressource:</b>
+<b>Example of an non-secured (open) ressource:</b>
 - http://130.225.170.248:8080/dindin/webapi/restaurants
 
-<b>Eksempel på beskyttet ressource: (Unathorized)</b>
+<b>Example of an secured ressource (401 Unauthorized)</b>
 - http://130.225.170.248:8080/dindin/webapi/users
 
 <b>WADL:</b>
 - http://130.225.170.248:8080/dindin/webapi/application.wadl
+
+
+<br>Try DINDIN at:<br>
+- [http://dindin.fahad.dk/](http://dindin.fahad.dk/ "DINDIN Angular-applikation") (Hosted by Amazon Webservices)
+
+
+<b>The project is developed as a distributed system and the other parts of the system can be found at:</b>
+- Angular app: https://github.com/FAS16/DINDIN-ANGULAR-V2
+- SOAP API (server): https://github.com/FAS16/DINDIN-SOAP
+- SOAP Client: https://github.com/FAS16/DINDIN-CMD
+
+## Deployment Diagram
+
+![alt text](https://github.com/FAS16/DINDIN-ANGULAR-V2/blob/master/deplyment%20diagram.png)
+
+
+
 
