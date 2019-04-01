@@ -3,13 +3,13 @@
 This Rest API is developed for the DINDIN Angular Application. 
 
 <b>Example of an non-secured (open) ressource:</b>
-- http://130.225.170.248:8080/dindin/webapi/restaurants
+- http://fahad.dk:8080/dindin/webapi/restaurants
 
 <b>Example of an secured ressource (401 Unauthorized)</b>
-- http://130.225.170.248:8080/dindin/webapi/users
+- http://fahad.dk:8080/dindin/webapi/users
 
 <b>WADL:</b>
-- http://130.225.170.248:8080/dindin/webapi/application.wadl
+- http://fahad.dk:8080/dindin/webapi/application.wadl
 
 
 <br>Try DINDIN at:<br>
