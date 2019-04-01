@@ -11,7 +11,6 @@ This Rest API is developed for the DINDIN Angular Application.
 <b>WADL:</b>
 - http://fahad.dk:8080/dindin/webapi/application.wadl
 
-
 <br>Try DINDIN at:<br>
 - [http://dindin.fahad.dk/](http://dindin.fahad.dk/ "DINDIN Angular-applikation") (Hosted by Amazon Webservices)
 
@@ -20,6 +19,7 @@ This Rest API is developed for the DINDIN Angular Application.
 - Angular app: https://github.com/FAS16/DINDIN-ANGULAR-V2
 - SOAP API (server): https://github.com/FAS16/DINDIN-SOAP
 - SOAP Client: https://github.com/FAS16/DINDIN-CMD
+- MySQL database: Hosted at Amazon Webservices
 
 ## Deployment Diagram
 
