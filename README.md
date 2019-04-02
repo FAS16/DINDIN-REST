@@ -1,6 +1,6 @@
 # DINDIN Restful webservice (API)
 
-This Rest API is developed for the DINDIN Angular Application. 
+This Rest API is developed for the DINDIN Angular Application. Developed with the Jersey Framework for Java.
 
 <b>Example of an non-secured (open) ressource:</b>
 - http://fahad.dk:8080/dindin/webapi/restaurants
