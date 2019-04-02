@@ -2,10 +2,10 @@
 
 This Rest API is developed for the DINDIN Angular Application. Developed with the Jersey Framework for Java.
 
-<b>Example of an non-secured (open) ressource:</b>
+<b>Example of a non-secured (open) ressource:</b>
 - http://fahad.dk:8080/dindin/webapi/restaurants
 
-<b>Example of an secured ressource (401 Unauthorized)</b>
+<b>Example of a secured ressource (401 Unauthorized)</b>
 - http://fahad.dk:8080/dindin/webapi/users/1
 
 <b>WADL:</b>
